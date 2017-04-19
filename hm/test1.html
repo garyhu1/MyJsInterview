@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>面试题小测1</title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		function Foo() {
+			getName = function() {
+				alert(1);
+			};
+			return this;
+		}
+		Foo.getName = function() {
+			alert(2);
+		};
+		Foo.prototype.getName = function() {
+			alert(3);
+		};
+		var getName = function() {
+			alert(4);
+		};
+
+		function getName() {
+			alert(5);
+		}
+		
+//		Foo.getName();//输出结果为2
+//		getName();//输出结果为4
+//      Foo().getName();//输出结果为1（解释：首先执行Foo函数返回本身this，然后再调用内部方法并执行）
+//      new Foo.getName();//2
+//      new Foo().getName();//3
+//      new new Foo().getName();//3
+        
+        function test() {
+        	console.log(a);
+        	console.log(foo());
+        	var a = 1;
+        	function foo() {
+        		return 2;
+        	}
+        }
+        
+        test();
+
+	</script>
+
+</html>

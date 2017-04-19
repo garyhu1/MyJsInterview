@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		/*
+		 * 获取一个数组，其中数组的长度为n,类型为整数，范围为[2,32],且不重复
+		 */
+		function fn(n) {
+			var arr = [];
+			while(arr.length < n) {
+				var flag = true;
+				var s = Math.round(Math.random() * 32);
+				if(s <= 32 && s >= 2) {
+					if(arr.length == 0) {
+						arr.push(s);
+					} else {
+						for(var m in arr) {
+							if(m === s) {
+								flag = false;
+								break;
+							}
+						}
+						if(flag){
+							arr.push(s);
+						}
+					}
+				}
+			}
+			return arr;
+		}
+
+		var ar = fn(5);
+		alert(ar);
+	</script>
+
+</html>
