@@ -13,6 +13,19 @@
 		 * 获取一个数组，其中数组的长度为n,类型为整数，范围为[2,32],且不重复
 		 */
 		function fn(n) {
+			if(!n){
+				alert("没有定义参数");
+				return;
+			}else if(typeof(n) != 'number'){
+				alert("不是数字");
+				return;
+			}else if(n<=0){
+				alert('不可以为负数');
+				return;
+			}else if(n.toString().indexOf(".")>=0){
+				alert('不可以为小数');
+				return;
+			}
 			var arr = [];
 			while(arr.length < n) {
 				var flag = true;
@@ -35,9 +48,12 @@
 			}
 			return arr;
 		}
-
-		var ar = fn(5);
-		alert(ar);
+		var ar = [];
+		ar = fn(5.9);
+		if(ar != undefined){
+			alert(ar);
+		}
+		
 	</script>
 
 </html>
