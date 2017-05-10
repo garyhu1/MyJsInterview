@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试滚轮事件</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			#test {
+				height: 100vh;
+			}
+			section {
+				height: 100vh;
+				font-size: 20vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			section:nth-child(1) {
+				background: red;
+			}
+			section:nth-child(2) {
+				background: darkgreen;
+			}
+			section:nth-child(3) {
+				background: goldenrod;
+			}
+			section:nth-child(4) {
+				background: tomato;
+			}
+			section:nth-child(5) {
+				background: hotpink;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="test">
+			<section class="circle">1</section>
+			<section class="circle">2</section>
+			<section class="circle">3</section>
+			<section class="circle">4</section>
+			<section class="circle">5</section>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/fullpage.js" ></script>
+	<script>
+		var fullPage = new FullPage({
+			element: document.querySelector("body > #test")
+		});
+		fullPage.active();
+	</script>
+</html>
