@@ -1,9 +1,110 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=decive-width, user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0 ">
 		<title>Tabs的切换</title>
+		<style type="text/css">
+			body,ul,li {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			.content {
+				height: 100vh;
+				background: grey;
+				overflow: hidden;
+			}
+			
+			.tabs {
+				display: flex;
+				width: 400px;
+				height: 400px;
+				flex-direction: column;
+				background: goldenrod;
+				margin: 100px auto;
+				border: 1px solid mediumvioletred;
+			}
+			
+			.tabs-title {
+				width: 400px;
+				height: 50px;
+				display: flex;
+				flex-direction: row;
+				cursor: pointer;
+			}
+			
+			.tabs-title li {
+				width: 200px;
+				text-align: center;
+				height: 50px;
+				line-height: 50px;
+				background: darkgoldenrod;
+			}
+			
+			.tabs-title li.active {
+				background: goldenrod;
+			}
+			
+			.tabs-content {
+				width: 400px;
+				height: 349px;
+				position: relative;
+			}
+			.tabs-content li {
+				width: 400px;
+				height: 349px;
+				position: absolute;
+				display: none;
+			}
+			.tabs-content li.active {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.circle {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 50px;
+				background: forestgreen;
+			}
+		</style>
 	</head>
+
 	<body>
+		<div class="content">
+			<div class="tabs">
+				<ul class="tabs-title">
+					<li class="active">tabs1</li>
+					<li>tabs2</li>
+				</ul>
+				<ul class="tabs-content">
+					<li class="active">
+						<div class="circle">
+							1
+						</div>
+					</li>
+					<li>
+						<div class="circle">
+							2
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</body>
+	<script type="text/javascript" src="../js/Tabs.js" ></script>
+	<script type="text/javascript">
+		new Tabs({
+			element : document.querySelectorAll(".tabs")[0]
+		}).active();
+	</script>
 </html>
