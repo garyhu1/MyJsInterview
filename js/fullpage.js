@@ -57,7 +57,9 @@ class FullPage {
 	
 	//绑定事件
 	bindEvent() {
+		//监听鼠标的滚轮事件
 		this.options.element.addEventListener("wheel",e => {
+			//e.deltaY大于0表示鼠标向下滚动
 			var targetIndex = this.currentIndex + (e.deltaY>0?1:-1);
 			this.moveToSection(targetIndex).then(
 			() => {
@@ -65,12 +67,13 @@ class FullPage {
 			},
 			() => {});
 		});
+		//针对移动设备的触屏的监听
 		dom.handleWheel(this.options.element,(e,direction) => {
 			var targetIndex;
 			if(direction === "down"){
-				targetIndex = this.currentIndex + 1; 
-			}else if(direction === "up"){
 				targetIndex = this.currentIndex - 1; 
+			}else if(direction === "up"){
+				targetIndex = this.currentIndex + 1; 
 			}else {
 				return ;
 			}
