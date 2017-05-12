@@ -1,9 +1,132 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>翻页效果</title>
-	</head>
-	<body>
-	</body>
+<html lang="zh-Hans">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Pager</title>
+	<style>
+		body {
+			background: #E7E7E7;
+		}
+		
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			text-align: center;
+		}
+		.pager {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			border: 0.5px solid gray;
+			border-radius: 5px;
+			align-items: center;
+			margin: 0 auto;
+			background: #D4D4D4;
+			width: 750px;
+			height: 50px;
+		}
+		.pager .page-num {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+		.pager .page-num li button{
+			background: none;
+			border: 1px solid #000;
+			background: gray;
+			width: 35px;
+			height: 35px;
+			border-radius: 3px;
+		}
+		
+		.pager .page-num li+li{
+			margin-left: 10px;
+		}
+		.first,.prev{
+			margin-right: 10px;
+			background: none;
+			border: 1px solid #000;
+			background: gray;
+			height: 35px;
+			border-radius: 3px;
+		}
+		.next,.last{
+			margin-left: 10px;
+			background: none;
+			border: 1px solid #000;
+			background: gray;
+			height: 35px;
+			border-radius: 3px;
+		}
+		.pager .page-num li button.active{
+			color: #FFF;
+			border: 1px solid blue;
+			background: firebrick;
+		}
+	</style>
+
+	<div>
+		<p>
+			这个分页器会在控制台打印出页数
+		</p>
+		<div class="pager">
+			<button class="first">首页</button>
+			<button class="prev">上一页</button>
+			<ul class="page-num">
+				<li><button class="active">1</button></li>
+				<li><button>2</button></li>
+				<li><button>3</button></li>
+				<li><button>4</button></li>
+				<li><button>5</button></li>
+				<li><button>6</button></li>
+				<li><button>7</button></li>
+				<li><button>8</button></li>
+				<li><button>9</button></li>
+				<li><button>10</button></li>
+			</ul>
+			<button class="next">下一页</button>
+			<button class="last">末页</button>
+		</div>
+	</div>
+	<div>
+		<p>
+			这个分页器会改变 url
+		</p>
+		<div class="pager"> </div>
+	</div>
+	<script src="../js/pager.js"></script>
+	<script>
+		let pagers = document.querySelectorAll('.pager')
+		new Pager({
+			element: pagers[0],
+			currentPage: 1,
+			totalPage: 100,
+		})
+		pagers[0].addEventListener('pageChange', (e) => {
+			console.log(e.detail.page)
+		})
+
+		new Pager({
+			element: pagers[1],
+			currentPage: parseInt(bom.queryString.get('page'), 10),
+			totalPage: 100,
+			pageQuery: 'page'
+		})
+	</script>
+
+	<!--百度统计-->
+	<!--<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?950926001a84a4f88cd3e1c7c0bfac08";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>-->
+
 </html>

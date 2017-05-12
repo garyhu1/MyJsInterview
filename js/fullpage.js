@@ -24,7 +24,9 @@ class FullPage {
 	
 	//初始化html
 	initHtml() {
+		
 		this.options.element.style.overflow = 'hidden';
+		//添加动画执行时间
 		dom.each(this.options.element.children,section => {
 			section.style.transition = `transform ${this.options.duration}`;
 		});
@@ -43,12 +45,14 @@ class FullPage {
 			}else {
 				this.animating = true;
 				var that = this;
+				//动画执行结束时的监听，改变动画的状态，并且设置currentIndex的值
 				this.options.element.addEventListener("transitionend",function callback(){
 					this.removeEventListener("tansitionend",callback);
 					that.animating = false;
 					resolve();
 				})
 				dom.each(this.options.element.children,section => {
+					//注意该动画运动是相对初始的位置
 					section.style.transform = `translateY(-${100*targetIndex}%)`;
 				});
 			}
