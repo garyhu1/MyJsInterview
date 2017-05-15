@@ -50,7 +50,8 @@
 			margin-right: 10px;
 			background: none;
 			border: 1px solid #000;
-			background: gray;
+			background: blueviolet;
+			color: #fff;
 			height: 35px;
 			border-radius: 3px;
 		}
@@ -58,7 +59,8 @@
 			margin-left: 10px;
 			background: none;
 			border: 1px solid #000;
-			background: gray;
+			background: blueviolet;
+			color: #fff;
 			height: 35px;
 			border-radius: 3px;
 		}
@@ -67,30 +69,17 @@
 			border: 1px solid blue;
 			background: firebrick;
 		}
+		.disable {
+			background: gray;
+			color: #000;
+		}
 	</style>
 
 	<div>
 		<p>
 			这个分页器会在控制台打印出页数
 		</p>
-		<div class="pager">
-			<button class="first">首页</button>
-			<button class="prev">上一页</button>
-			<ul class="page-num">
-				<li><button class="active">1</button></li>
-				<li><button>2</button></li>
-				<li><button>3</button></li>
-				<li><button>4</button></li>
-				<li><button>5</button></li>
-				<li><button>6</button></li>
-				<li><button>7</button></li>
-				<li><button>8</button></li>
-				<li><button>9</button></li>
-				<li><button>10</button></li>
-			</ul>
-			<button class="next">下一页</button>
-			<button class="last">末页</button>
-		</div>
+		<div class="pager"></div>
 	</div>
 	<div>
 		<p>
@@ -98,14 +87,14 @@
 		</p>
 		<div class="pager"> </div>
 	</div>
-	<script src="../js/pager.js"></script>
+	<script type="text/javascript" src="../js/pager.js" ></script>
 	<script>
-		let pagers = document.querySelectorAll('.pager')
+		var pagers = document.querySelectorAll('.pager')
 		new Pager({
 			element: pagers[0],
 			currentPage: 1,
 			totalPage: 100,
-		})
+		}).active();
 		pagers[0].addEventListener('pageChange', (e) => {
 			console.log(e.detail.page)
 		})
@@ -113,9 +102,9 @@
 		new Pager({
 			element: pagers[1],
 			currentPage: parseInt(bom.queryString.get('page'), 10),
-			totalPage: 100,
+			totalPage: 20,
 			pageQuery: 'page'
-		})
+		}).active();
 	</script>
 
 	<!--百度统计-->

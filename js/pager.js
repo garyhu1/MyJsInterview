@@ -1,23 +1,19 @@
 class Pager {
 	constructor(options) {
-		var defaultOptions = {
-			currentPage: 1,
+		let defaultOptions = {
 			element: null,
 			buttonCount: 10,
+			currentPage: 1,
 			totalPage: 1,
-			queryPage: "",
-			template: {
-				number: "<button>%page%</button>",
-				next: "<button class="
-				next ">下一页</button>",
-				prev: "<button class="
-				prev ">上一页</button>",
-				first: "<button class="
-				first ">首页</button>",
-				last: "<button class="
-				last ">末页</button>"
-			}
-		}
+			pageQuery: '', // 'page'
+			templates: {
+				number: '<button>%page%</button>',
+				prev: '<button class="prev">上一页</button>',
+				next: '<button class="next">下一页</button>',
+				first: '<button class="first">首页</button>',
+				last: '<button class="last">末页</button>',
+			},
+		};
 		this.options = Object.assign({}, defaultOptions, options);
 		this.pageNum = {};
 		this.currentPage = parseInt(this.options.currentPage, 10) || 1;
@@ -35,20 +31,36 @@ class Pager {
 	}
 	//绑定事件 
 	bindEvent() {
-		dom.on(this.options.element,'click','.page-num>li',(e,el) => {
+		dom.on(this.options.element, 'click', '.page-num>li>button', (e, el) => {
 			//暂时不理解
-			this.goToPage(parseInt(el.dataset.page, 10))
+			this.goToPage(parseInt(el.innerText, 10))
 		});
+		this.pageNum.first.addEventListener('click', () => {
+			this.goToPage(1)
+		})
+		this.pageNum.last.addEventListener('click', () => {
+			this.goToPage(this.options.totalPage)
+		})
+		this.pageNum.prev.addEventListener('click', () => {
+			this.goToPage(this.currentPage - 1)
+		})
+		this.pageNum.next.addEventListener('click', () => {
+			this.goToPage(this.currentPage + 1)
+		})
 	}
 	//设置被选中的页数
 	goToPage(page) {
-		if(!page||page === this.options.totalPage||page === this.currentPage){
-			return ;
+		if(!page || page > this.options.totalPage || page === this.currentPage) {
+			return;
 		}
-		
+
 		this.currentPage = page;
 		//添加一个自定义的事件，给外部做监听使用
-		this.options.element.dispatchEvent(new CustomEvent('pageChange', { detail: { page } }));
+		this.options.element.dispatchEvent(new CustomEvent('pageChange', {
+			detail: {
+				page
+			}
+		}));
 		this.resetPage();
 	}
 	//重新设置页数
@@ -56,17 +68,17 @@ class Pager {
 		this.checkButtons();
 		var newerPage = this.createNumbers();
 		var olderPage = this.pageNum.num;
-		olderPage.parentNode.replaceChild(newerPage,olderPage);
+		olderPage.parentNode.replaceChild(newerPage, olderPage);
 		this.pageNum.num = newerPage;
 	}
 	//初始化页面
 	initHtml() {
-		this.pageNum.first = dom.create(this.options.template.first);
-		this.pageNum.prev = dom.create(this.options.template.prev);
-		this.pageNum.next = dom.create(this.options.template.next);
-		this.pageNum.last = dom.create(this.options.template.last);
-		this.pageNum.num = this.createNumbers();
+		this.pageNum.first = dom.create(this.options.templates.first);
+		this.pageNum.prev = dom.create(this.options.templates.prev);
+		this.pageNum.next = dom.create(this.options.templates.next);
+		this.pageNum.last = dom.create(this.options.templates.last);
 		this.checkButtons();
+		this.pageNum.num = this.createNumbers();
 		this.options.element.appendChild(this.pageNum.first);
 		this.options.element.appendChild(this.pageNum.prev);
 		this.options.element.appendChild(this.pageNum.num);
@@ -77,18 +89,26 @@ class Pager {
 	//根据页数的显示状态来设置按钮的状态
 	checkButtons() {
 		if(this.currentPage === 1) {
-			this.pageNum.first.setAttribute("disabled", "");
-			this.pageNum.prev.setAttribute("disabled", "");
+			this.pageNum.first.classList.add("disable");
+			this.pageNum.prev.classList.add("disable");
+			this.pageNum.first.setAttribute('disabled', '')
+			this.pageNum.prev.setAttribute('disabled', '')
 		} else {
-			this.pageNum.first.removeAttribute("disabled");
-			this.pageNum.prev.removeAttribute("disabled");
+			this.pageNum.first.classList.remove("disable");
+			this.pageNum.prev.classList.remove("disable");
+			this.pageNum.first.removeAttribute('disabled')
+			this.pageNum.prev.removeAttribute('disabled')
 		}
-		if(this.currentPage === this.options.currentPage) {
-			this.pageNum.last.setAttribute("disabled", "");
-			this.pageNum.next.setAttribute("disabled", "");
+		if(this.currentPage === this.options.totalPage) {
+			this.pageNum.next.classList.add("disable");
+			this.pageNum.last.classList.add("disable");
+			this.pageNum.next.setAttribute('disabled', '')
+			this.pageNum.last.setAttribute('disabled', '')
 		} else {
-			this.pageNum.last.removeAttribute("disabled");
-			this.pageNum.next.removeAttribute("disabled");
+			this.pageNum.next.classList.remove("disable");
+			this.pageNum.last.classList.remove("disable");
+			this.pageNum.next.removeAttribute('disabled')
+			this.pageNum.last.removeAttribute('disabled')
 		}
 	}
 	//重新排列数字
@@ -103,14 +123,14 @@ class Pager {
 		var start2 = Math.max(end2 - buttonCount + 1, 1)
 		var start = Math.min(start1, start2)
 		var end = Math.max(end1, end2)
-		
+
 		var ul = dom.create('<ul class="page-num"></ul>');
 		var numbers = [];
 		//添加页数
-		for(var i = start;i <= end;i++){
+		for(var i = start; i <= end; i++) {
 			var li = dom.create(`<li>${this.options.templates.number.replace('%page%', i)}</li>`);
-			if(i === currentPage){
-				li.classList.add("active");
+			if(i === currentPage) {
+				li.children[0].classList.add("active");
 			}
 			ul.appendChild(li);
 		}
@@ -136,7 +156,7 @@ var dom = {
 	create: function(html, children) {
 		var template = document.createElement('template')
 		template.innerHTML = html.trim()
-		let node = template.content.firstChild
+		var node = template.content.firstChild
 		if(children) {
 			dom.append(node, children)
 		}
