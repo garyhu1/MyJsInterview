@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>快速排序</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var quickSort = function (arr){
+			if(arr.length <= 1){
+				return arr;
+			}
+			//定义一个比较的基准
+			var standard = arr.splice(0,1)[0];
+			
+			var left = [];
+			var right = [];
+			
+			for(var i = 0;i < arr.length;i++){
+				if(standard <= arr[i]){
+					right.push(arr[i]);
+				}else {
+					left.push(arr[i])
+				}
+			}
+			
+			return quickSort(left).concat(standard,quickSort(right));
+		}
+		
+		var arr = [43,10,3,5,27,94,100,23,40,65,222,35,14,45];
+		var ar = quickSort(arr);
+		alert(ar);
+	</script>
+</html>
