@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>算法</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		function add() {
+			//用于收集参数
+			var _args = [].slice.call(arguments);
+			//内部的函数
+			var adder = function (){
+				//收集参数
+				var _adder = function (){
+					[].push.apply(_args,[].slice.call(arguments));
+					return _adder;
+				}
+				//重新设置_adder的值
+				//_adder.toString返回的为_adder
+				_adder.toString = function () {
+					return _args.reduce(function(a,b){
+						return a+b;
+					});
+				}
+				
+				return _adder;
+			}
+			
+			return adder.apply(null,_args);
+		}
+		
+		console.log(add(1,2,3,4,5));
+		console.log(add(1)(2)(3)(4)(5));
+		console.log(add(1,2)(3,4)(5));
+	</script>
+</html>

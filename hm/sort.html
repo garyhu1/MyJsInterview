@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>数组的排序</title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		//排序算法
+		window.onload = function() {
+			var array = [0, 1, 2, 44, 4,
+				324, 5, 65, 6, 6,
+				34, 4, 5, 6, 2,
+				43, 5, 6, 62, 43,
+				5, 1, 4, 51, 56,
+				76, 7, 7, 2, 1,
+				45, 4, 6, 7, 8
+			];
+			var ar = [10,3,2,100,200,34];
+			//var array = [4,2,5,1,0,3];
+			array = sorting.shellSort(array);
+			console.log(sorting.quick(ar));
+//			alert(array);
+		}
+ 
+		var sorting = {
+			//利用sort方法进行排序
+			systemSort: function(arr) {
+				return arr.sort(function(a, b) {
+					return a - b;
+				});
+			},
+
+			//冒泡排序
+			bubbleSort: function(arr) {
+				var len = arr.length,
+					tmp;
+				for(var i = 0; i < len - 1; i++) {
+					for(var j = 0; j < len - 1 - i; j++) {
+						if(arr[j] > arr[j + 1]) {
+							tmp = arr[j];
+							arr[j] = arr[j + 1];
+							arr[j + 1] = tmp;
+						}
+					}
+				}
+				return arr;
+			},
+			
+			//冒泡排序
+			myBubble:function (arr) {
+				var tmp;
+				for(var i = 0;i < arr.length;i++){
+					for(var j = i+1;j < arr.length;j++){
+						if(arr[i]>arr[j]){
+							tmp = arr[i];
+							arr[i] = arr[j];
+							arr[j] = tmp;
+						}
+					}
+				}
+				return arr;
+			},
+
+			//快速排序
+			quickSort: function(arr) {
+				var low = 0,
+					high = arr.length - 1;
+				sort(low, high);
+
+				function sort(low, high) {
+					if(low < high) {
+						var mid = (function(low, high) {
+							var tmp = arr[low];
+							while(low < high) {
+								while(low < high && arr[high] >= tmp) {
+									high--;
+								}
+								arr[low] = arr[high];
+								while(low < high && arr[low] <= tmp) {
+									low++;
+								}
+								arr[high] = arr[low];
+							}
+							arr[low] = tmp;
+							return low;
+						})(low, high);
+						sort(low, mid - 1);
+						sort(mid + 1, high);
+					}
+				}
+				return arr;
+			},
+			
+			//快速排序
+			quick:function (arr) {
+				if(arr.length <= 1){
+					return arr;
+				}
+				var left = [];
+				var right = [];
+				//设置一下标准
+				var std = arr.splice(0,1)[0];
+				
+				for(var i = 0;i < arr.length;i++){
+					if(std>arr[i]){
+						left.push(arr[i]);
+					}else {
+						right.push(arr[i]);
+					}
+				}
+				return this.quick(left).concat(std,this.quick(right));
+			},
+
+			//插入排序
+			insertSort: function(arr) {
+				var len = arr.length;
+				for(var i = 1; i < len; i++) {
+					var tmp = arr[i];
+					for(var j = i - 1; j >= 0; j--) {
+						if(tmp < arr[j]) {
+							arr[j + 1] = arr[j];
+						} else {
+							arr[j + 1] = tmp;
+							break;
+						}
+					}
+				}
+				return arr;
+			},
+
+			//希尔排序
+			shellSort: function(arr) {
+				console.log(arr);
+				var h = 1;
+				while(h <= arr.length / 3) {
+					h = h * 3 + 1; //O(n^(3/2))by Knuth,1973
+				}
+				for(; h >= 1; h = Math.floor(h / 3)) {
+					for(var k = 0; k < h; k++) {
+						for(var i = h + k; i < arr.length; i += h) {
+							for(var j = i; j >= h && arr[j] < arr[j - h]; j -= h) {
+								var tmp = arr[j];
+								arr[j] = arr[j - h];
+								arr[j - h] = tmp;
+							}
+						}
+					}
+				}
+				return arr;
+			}
+		}
+	</script>
+
+</html>

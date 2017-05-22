@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>闭包测试</title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		var Singleton = function(name) {
+			this.name = name;
+		}
+		Singleton.prototype.getName = function() {
+			console.log(this.name);
+		}
+		var a = new Singleton('a');
+		var b = new Singleton('b');
+		a.getName();//a
+		b.getName();//b
+
+		Singleton.getInstance = (function() {
+			var instance = null;
+			return function(name) {
+				if(!instance) {
+					instance = new Singleton(name);
+				}
+//				instance = new Singleton(name);
+				return instance;
+			}
+		})();
+
+		var c = Singleton.getInstance('sven1');
+		console.log(Singleton.instance);
+		var d = Singleton.getInstance('sven2');
+		//不同变量指向了同一个内存
+		c.getName(); //sven1
+		d.getName(); //sven1
+	</script>
+
+</html>
