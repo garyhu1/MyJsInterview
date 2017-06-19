@@ -58,6 +58,34 @@
 			}
 			return adder.apply(null, _args);
 		}
+		
+		/*
+		 * 针对上面的例子的另外一种写法
+		 */
+		function add2(...args) {
+			let arr = [];
+			args.forEach(function(item){
+				arr.push(item);
+			});
+			var sum = function() {
+				var _sum = function(...items){
+					items.forEach(function(val){
+						arr.push(val);
+					});
+					return _sum;
+				};
+				
+				_sum.toString = function() {
+					return arr.reduce(function(a,b){
+						return a+b;
+					});
+				};
+				
+				return _sum;
+			}
+			
+			return sum.apply(null,arr);
+		}
 
 		var s1 = add1(1,2,3, 4, 5);
 		var s2 = add1(1)(2)(3)(4)(5);
@@ -65,6 +93,8 @@
 		console.log(s1);
 		console.log(s2);
 		console.log(s3);
+		var s4 = add2(1,2)(3,4)(5);
+		alert(s4);
 	</script>
 
 </html>

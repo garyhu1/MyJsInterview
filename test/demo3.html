@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>进度条的实现</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.container{
+				height: 5px;
+				background: forestgreen;
+				border-radius: 5px;
+				width: 100%;
+			}
+			#load {
+				height: 5px;
+				animation: load 5s ease;
+				background: red;
+				border-radius: 5px;
+			}
+			
+			@keyframes load {
+				0% {
+					width: 0
+				}
+				100% {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="load"></div>
+		</div>
+	</body>
+</html>

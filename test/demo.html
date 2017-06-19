@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>js单线程</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var isEnd = true;
+		setTimeout(function() {
+			isEnd = false;
+		},1000);
+		while(isEnd);
+		alert("END");
+	</script>
+</html>

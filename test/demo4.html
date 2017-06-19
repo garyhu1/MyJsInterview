@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>变量提升</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		//var会发生变量的提升
+		//即变量可以在声明之前使用，值为undefined
+		var name = 'garyhu';
+		
+		function change() {
+			console.log(name);
+			var name = 'weiwei';
+			console.log(name);
+		}
+		
+		//执行函数时，发生了变量的提升，
+		//name 被提升了，首先找到函数中的我所有var类型的变量，
+		//然后在对应位置赋值，第一个日志的时候，
+		//其实name已经提升，即var name;
+		//所以会打印undefined
+		change();
+		
+		var x = do {
+			let t = 10;
+			t*t+1;
+		}
+		alert(x);
+	</script>
+</html>

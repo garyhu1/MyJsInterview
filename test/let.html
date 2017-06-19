@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>let测试</title>
+	</head>
+	<body>
+	</body>
+	<script>
+		function count() {
+			let arr = [];
+			//如果把for循环中的let用var替代，结果会不同
+			//闭包函数不会立刻执行
+			for(let i = 0;i<=3 ;i++){
+				//由于闭包的特性，数组中放入的函数不会立刻执行
+				arr.push(function(){
+					return i*i;
+				});
+			}
+			return arr;
+		}
+		
+		var arr = count();
+		var f1 = arr[0];
+		var f2 = arr[1];
+		var f3 = arr[2];
+		
+		alert(f3());
+	</script>
+</html>
